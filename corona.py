@@ -79,4 +79,4 @@ elif len(args) == 2:
         sysout()
         stats(api_endpoints.COUNTRY.format(iso=info['alpha3Code']))
     except Exception as e:
-        sysout(str(e))
+        syserr(str(e))
