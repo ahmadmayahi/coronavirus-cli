@@ -22,7 +22,7 @@ class bcolors:
 class api():
     GLOBAL = 'https://covidapi.info/api/v1/global'
     COUNTRY = 'https://covidapi.info/api/v1/country/{iso}/latest'
-    COUNTRY_INFO = 'https://restcountries.eu/rest/v2/alpha/co'
+    COUNTRY_INFO = 'https://restcountries.eu/rest/v2/alpha/{iso}'
 
 def result(url):
     res = http.request('GET', url)
@@ -57,7 +57,7 @@ def stats(api):
         syserr(str(e))
 
 def country_info(country):
-    return result('https://restcountries.eu/rest/v2/alpha/' + country)
+    return result(api.COUNTRY_INFO.format(iso=country))
 
 if len(args) == 1:
     stats(api.GLOBAL)
