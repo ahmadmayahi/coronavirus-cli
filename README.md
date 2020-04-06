@@ -1,8 +1,10 @@
 ## Corona Statistics CLI
 
-Get latest coronavirus statistics through the CLI.
+Get the latest coronavirus statistics directly from the CLI.
 
-Installation:
+You do need to have Python3 installed on your machine.
+
+**Installation**:
 ```bash
 git clone git@github.com:ahmadmayahi/coronavirus-cli.git
 cd coronavirus-cli

@@ -1,6 +1,9 @@
 #!/usr/local/bin/python3
 
-import sys, urllib3, json, locale
+import json
+import locale
+import sys
+import urllib3
 from datetime import date
 
 locale.setlocale(locale.LC_ALL, '')
@@ -9,7 +12,8 @@ today = date.today()
 http = urllib3.PoolManager()
 args = sys.argv
 
-class bcolors:
+
+class cli_colors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKGREEN = '\033[92m'
@@ -19,10 +23,12 @@ class bcolors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-class api():
+
+class api_endpoints():
     GLOBAL = 'https://covidapi.info/api/v1/global'
     COUNTRY = 'https://covidapi.info/api/v1/country/{iso}/latest'
     COUNTRY_INFO = 'https://restcountries.eu/rest/v2/alpha/{iso}'
+
 
 def result(url):
     res = http.request('GET', url)
@@ -31,11 +37,14 @@ def result(url):
 
     return json.loads(str(res.data.decode('utf-8')))
 
-def syserr(message):
-    sys.stderr.write(bcolors.FAIL + message + '\n')
 
-def sysout(output = ''):
+def syserr(message):
+    sys.stderr.write(cli_colors.FAIL + message + '\n')
+
+
+def sysout(output=''):
     sys.stdout.write(output + '\n')
+
 
 def stats(api):
     try:
@@ -50,23 +59,24 @@ def stats(api):
         deaths = int(res['deaths'])
         recovered = int(res['recovered'])
 
-        sysout(bcolors.OKBLUE + 'Confirmed\t: ' + '{:,}'.format(confirmed))
-        sysout(bcolors.FAIL + 'Deaths\t\t: ' + '{:,}'.format(deaths))
-        sysout(bcolors.OKGREEN + 'Recovered\t: ' + '{:,}'.format(recovered))
+        sysout(cli_colors.OKBLUE + 'Confirmed\t: ' + '{:,}'.format(confirmed))
+        sysout(cli_colors.FAIL + 'Deaths\t\t: ' + '{:,}'.format(deaths))
+        sysout(cli_colors.OKGREEN + 'Recovered\t: ' + '{:,}'.format(recovered))
     except Exception as e:
         syserr(str(e))
 
+
 def country_info(country):
-    return result(api.COUNTRY_INFO.format(iso=country))
+    return result(api_endpoints.COUNTRY_INFO.format(iso=country))
+
 
 if len(args) == 1:
-    stats(api.GLOBAL)
+    stats(api_endpoints.GLOBAL)
 elif len(args) == 2:
     try:
         info = country_info(args.pop().lower())
-        sysout(bcolors.HEADER + 'Statistics for ' + info['name'])
+        sysout(cli_colors.HEADER + 'Statistics for ' + info['name'])
         sysout()
-        stats(api.COUNTRY.format(iso=info['alpha3Code']))
+        stats(api_endpoints.COUNTRY.format(iso=info['alpha3Code']))
     except Exception as e:
         sysout(str(e))
-
