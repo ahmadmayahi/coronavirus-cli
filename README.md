@@ -22,8 +22,6 @@ python3 corona us # United States
 python3 corona au # Australia
 
 # Make the script available globally
-chmod +x corona.py
-mv corona.py corona
-ln -s $(PWD)/corona.py /usr/local/bin/corona
+sh install.sh
 corona
 ```
