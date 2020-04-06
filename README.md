@@ -2,9 +2,12 @@
 
 Get the latest coronavirus statistics directly from the CLI.
 
-You do need to have Python3 installed on your machine.
+> Please make sure that you have `Python 3` up and running on your machine.
 
-**Installation**:
+![Global](https://i.imgur.com/r7e21Th.png) 
+
+![Denmark](https://i.imgur.com/Juex7sH.png)
+
 ```bash
 git clone git@github.com:ahmadmayahi/coronavirus-cli.git
 cd coronavirus-cli
@@ -13,6 +16,14 @@ pip3 install -r requirements.txt
 # Get the statistics
 python3 corona.py
 
-# Statistics for a speicif country (alpha2 code)
-python3 corona dk 
+# Statistics for a specific country (alpha2 code)
+python3 corona dk # Denmark
+python3 corona us # United States
+python3 corona au # Australia
+
+# Make the script available globally
+chmod +x corona.py
+mv corona.py corona
+ln -s $(PWD)/corona.py /usr/local/bin/corona
+corona
 ```
