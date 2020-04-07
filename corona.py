@@ -4,10 +4,8 @@ import json
 import locale
 import sys
 import urllib3
-from datetime import date
 
 locale.setlocale(locale.LC_ALL, '')
-today = date.today()
 
 http = urllib3.PoolManager()
 args = sys.argv
