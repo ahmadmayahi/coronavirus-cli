@@ -32,7 +32,7 @@ class api_endpoints():
 
 def result(url):
     res = http.request('GET', url)
-    if res.status is not 200:
+    if res.status != 200:
         raise Exception("Cannot read from the given url")
 
     return json.loads(str(res.data.decode('utf-8')))
